@@ -2,11 +2,11 @@ package battletank;
 
 import battletank.Display.Display;
 import battletank.gfx.Assets;
-import battletank.gfx.ImgLoader;
-import java.awt.Color;
+import battletank.states.GameState;
+import battletank.states.MenuState;
+import battletank.states.State;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,7 +22,8 @@ public class Game implements Runnable
     private BufferStrategy bs;
     private Graphics g;
     
-    private BufferedImage testImg;
+   //States
+    private State gameState;
     
     public Game(String title, int width, int height)
     {
@@ -35,12 +36,16 @@ public class Game implements Runnable
     {        
         display = new Display(title, width, height);
         Assets.init();
+        
+        gameState = new MenuState();
+        State.setState(gameState);
     }
     
   
     private void tick()
     {
-       
+        if(State.getState() != null)
+            State.getState().tick();
     }
     
     private void render()
@@ -57,7 +62,8 @@ public class Game implements Runnable
         g.clearRect(0, 0, width, height);
         //Draw Start
         
-        g.drawImage(Assets.penguin, 0, 100, null);
+       if(State.getState() != null)
+            State.getState().render(g);
         
         
         //End draw
