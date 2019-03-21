@@ -2,6 +2,7 @@ package battletank;
 
 import battletank.Display.Display;
 import battletank.gfx.Assets;
+import battletank.input.KeyManager;
 import battletank.states.GameState;
 import battletank.states.MenuState;
 import battletank.states.State;
@@ -24,26 +25,36 @@ public class Game implements Runnable
     
    //States
     private State gameState;
+    private State menuState;
+    
+    private KeyManager p1Control, p2Control;
     
     public Game(String title, int width, int height)
     {
         this.width = width;
         this.height = height;
-        this.title = title;                  
+        this.title = title;              
+        p1Control = new KeyManager(1);
+        p2Control = new KeyManager(2);
     }
     
     private void init()
     {        
         display = new Display(title, width, height);
+        display.getFrame().addKeyListener(p1Control);
+        display.getFrame().addKeyListener(p2Control);
         Assets.init();
         
-        gameState = new MenuState();
+        gameState = new GameState(this);
+        menuState = new MenuState(this);
         State.setState(gameState);
     }
     
   
     private void tick()
     {
+        p2Control.tick();
+        p1Control.tick();
         if(State.getState() != null)
             State.getState().tick();
     }
@@ -63,6 +74,7 @@ public class Game implements Runnable
         //Draw Start
         
        if(State.getState() != null)
+            
             State.getState().render(g);
         
         
@@ -127,5 +139,14 @@ public class Game implements Runnable
         } catch (InterruptedException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public KeyManager getKeyManager(int player) 
+    { 
+        if(player == 1 )
+            return p1Control;
+        else if(player == 2 )
+            return p2Control;
+        return null;
     }
 }
