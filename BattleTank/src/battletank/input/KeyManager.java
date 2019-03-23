@@ -3,35 +3,20 @@ package battletank.input;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class KeyManager implements KeyListener
+public abstract class KeyManager implements KeyListener
 {
-    private boolean[] keys;
+    protected boolean[] keys;
     public boolean up, down, left, right;
-    private int player;
     
-    public KeyManager(int player)
+    
+    public KeyManager()
     {
-        this.player = player;
+        
         keys = new boolean[256];
     }
     
-    public void tick()
-    {
-        if(player == 1)
-        {
-            up = keys[KeyEvent.VK_UP];
-            down = keys[KeyEvent.VK_DOWN];
-            left = keys[KeyEvent.VK_LEFT];
-            right = keys[KeyEvent.VK_RIGHT];
-        }
-        else if(player == 2)
-        {
-            up = keys[KeyEvent.VK_W];
-            down = keys[KeyEvent.VK_S];
-            left = keys[KeyEvent.VK_A];
-            right = keys[KeyEvent.VK_D];
-        }
-    }
+    public abstract void tick();
+    
     
     @Override
     public void keyTyped(KeyEvent arg0) 

@@ -3,6 +3,8 @@ package battletank;
 import battletank.Display.Display;
 import battletank.gfx.Assets;
 import battletank.input.KeyManager;
+import battletank.input.Player1Key;
+import battletank.input.Player2Key;
 import battletank.states.GameState;
 import battletank.states.MenuState;
 import battletank.states.State;
@@ -34,8 +36,8 @@ public class Game implements Runnable
         this.width = width;
         this.height = height;
         this.title = title;              
-        p1Control = new KeyManager(1);
-        p2Control = new KeyManager(2);
+        p1Control = new Player1Key();
+        p2Control = new Player2Key();
     }
     
     private void init()
