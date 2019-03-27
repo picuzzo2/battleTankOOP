@@ -49,7 +49,7 @@ public class Game implements Runnable
         
         gameState = new GameState(this);
         menuState = new MenuState(this);
-        State.setState(gameState);
+        State.setState(menuState);
     }
     
   
@@ -146,3 +146,4 @@ public class Game implements Runnable
         return null;
     }
 }
+

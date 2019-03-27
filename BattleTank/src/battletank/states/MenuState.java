@@ -21,6 +21,10 @@ public class MenuState extends State
     public void render(Graphics g) 
     {
         g.drawImage(Assets.bg, 0, 0, null);
+        g.drawImage(Assets.playBt, 450, 200, 100,100, null);
     }
     
 }
+
+
+
