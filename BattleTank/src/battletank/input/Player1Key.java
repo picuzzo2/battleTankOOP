@@ -12,7 +12,7 @@ public class Player1Key extends KeyManager {
         down = keys[KeyEvent.VK_DOWN];
         left = keys[KeyEvent.VK_LEFT];
         right = keys[KeyEvent.VK_RIGHT];
-        
+        shoot = keys[KeyEvent.VK_CONTROL];
     }
     
 }

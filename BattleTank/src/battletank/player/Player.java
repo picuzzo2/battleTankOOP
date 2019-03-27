@@ -30,16 +30,43 @@ public class Player
         
     }
     
+    private void moveUp()
+    {
+        y -= speed;
+    }
+    
+    private void moveDown()
+    {
+        y += speed;
+    }
+    
+    private void moveLeft()
+    {
+        x -= speed;
+    }
+    
+    private void moveRight()
+    {
+        x += speed;
+    }
+    
+    private void shoot()
+    {
+        
+    }
+    
     public void tick()
     {
         if(game.getKeyManager(player).up)
-            y -= speed;
+            moveUp();
         if(game.getKeyManager(player).down)
-            y += speed;
+            moveDown();
         if(game.getKeyManager(player).left)
-            x -= speed;
+            moveLeft();
         if(game.getKeyManager(player).right)
-            x += speed;
+            moveRight();
+        if(game.getKeyManager(player).shoot)
+            shoot();
     }
     
     public void render(Graphics g)

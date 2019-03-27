@@ -13,7 +13,7 @@ public class GameState extends State {
     {
         super(game);
         player1 = new Player(game, 0, 0, 1, Assets.penguin);
-        player2 = new Player(game, 800, 800, 2, Assets.pig);
+        player2 = new Player(game, 250, 250, 2, Assets.pig);
     }
     
     

@@ -12,7 +12,7 @@ public class Player2Key extends KeyManager
         down = keys[KeyEvent.VK_S];
         left = keys[KeyEvent.VK_A];
         right = keys[KeyEvent.VK_D];
-        
+        shoot = keys[KeyEvent.VK_SPACE];
     }
     
 }
