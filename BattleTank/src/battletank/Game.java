@@ -75,10 +75,8 @@ public class Game implements Runnable
         g.clearRect(0, 0, width, height);
         //Draw Start
         
-       if(State.getState() != null)
-            
+       if(State.getState() != null)           
             State.getState().render(g);
-        
         
         //End draw
         bs.show();
@@ -94,13 +92,11 @@ public class Game implements Runnable
         double delta = 0;
         long now;
         long lastTime = System.nanoTime();
-        
-        
+                
         while(running)
         {
             now = System.nanoTime();
             delta += (now - lastTime) / timePerTick;
-            
             lastTime = now;
             
             if(delta >= 1)
