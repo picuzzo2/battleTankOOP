@@ -9,14 +9,15 @@ import java.awt.image.BufferedImage;
 public class Player 
 {
     public static final float DEFAULT_SPEED = 3;
-    private Game game;
-    
+    public static final float WIDTH = 32;
+
     private float x,y,speed;
     private int width , height;
     private int player;
-    private BufferedImage avatar;
     private int direction; // up=0, right=1, down=2, left=3
+    private BufferedImage avatar;
     
+    private Game game;    
     private Bullet bullet = null;
     private boolean bulletAppear = false;
    
@@ -25,8 +26,8 @@ public class Player
     {
         this.x = x;
         this.y = y;
-        this.width = 30;
-        this.height = 30;
+        this.width = (int)WIDTH;
+        this.height = (int)WIDTH;
         this.game = game;
         speed = DEFAULT_SPEED;
         this.player = player;
@@ -69,8 +70,7 @@ public class Player
 
     private void shoot()
     {
-        System.out.println(direction);
-        bullet = new Bullet(x,y,direction);
+        bullet = new Bullet(x + WIDTH / 2, y + WIDTH/2 ,direction);
     }
     
     public void tick()
@@ -91,7 +91,7 @@ public class Player
     
     public void render(Graphics g)
     {
-        g.drawImage(avatar, (int)x, (int)y, width, height,  null);
+        
         try 
         {
             if(bulletAppear)
@@ -104,6 +104,7 @@ public class Player
        
             
         } catch (Exception e) { }
+        g.drawImage(avatar, (int)x, (int)y, width, height,  null);
         
     }
     

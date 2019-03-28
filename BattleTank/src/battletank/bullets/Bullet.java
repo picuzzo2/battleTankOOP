@@ -32,23 +32,6 @@ public class Bullet
         return bulletReady;
     }
     
-    public boolean hit()
-    {
-        switch(direction)
-        {
-            case 0: if( y < 0) return true;
-            else return false;
-            case 1: if( x > 600) return true;
-            else return false;
-            case 2: if( y > 600) return true;
-            else return false;
-            case 3: if( x < 0) return true;
-            else return false;
-                 
-        }
-        return false;
-    }
-    
     public void tick()
     {
         //up=0, right=1, down=2, left=3
@@ -69,7 +52,7 @@ public class Bullet
     public void render(Graphics g)
     {
         
-        g.drawImage(bl, (int)x, (int)y, 10, 10,  null);
+        g.drawImage(bl, (int)x-5 , (int)y-5 , 10, 10,  null);
         tick();
     }
 }
