@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 
 public class Game implements Runnable
 {
+    
     private Display display;
     private int width, height;
     private String title;
@@ -141,4 +142,10 @@ public class Game implements Runnable
             return p2Control;
         return null;
     }
+    
+    public Graphics getG()
+    {
+        return g;
+    }
+   
 }

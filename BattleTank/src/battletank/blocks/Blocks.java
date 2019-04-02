@@ -6,23 +6,36 @@ import java.awt.image.BufferedImage;
 
 public abstract class Blocks 
 {
-    protected static final int TILEWIDTH = 32
-                            ,TILEHEIGHT = 32;
+    public static final int PIX_WIDE =32;
+    
     protected BufferedImage texture;
     protected final int id;
     protected int x,y;
+    public int trX,trY
+            ,tlX,tlY
+            ,brX,brY
+            ,blX,blY;
+    public boolean moveAble = true;
     
-    public Blocks(BufferedImage texture, int id)
+    public Blocks(BufferedImage texture, int id, int x, int y)
     {
         this.id = id;
         this.texture = texture;
+        this.x = x;
+        this.y = y;
+        tlX = x; tlY = y;
+        trX = x+PIX_WIDE; trY = y;
+        blX = x; blY = y+PIX_WIDE;
+        brX = x+PIX_WIDE; brY = y+PIX_WIDE;
+        
     }
     
     public abstract void tick();
     
     public abstract void render(Graphics g);
-    
-    public int getId() { return id; }
-    public int getX() { return x; }
-    public int getY() { return y; }
+
+    public boolean isMoveAble()
+    {
+        return moveAble;
+    }
 }
