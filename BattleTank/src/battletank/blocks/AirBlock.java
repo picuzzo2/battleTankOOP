@@ -4,13 +4,11 @@ package battletank.blocks;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-public class GrassBlock extends Blocks {
+public class AirBlock extends Blocks {
 
-    public GrassBlock( int x, int y) 
+    public AirBlock( int x, int y) 
     {
-        
         super( x, y);
-        
     }
 
     @Override

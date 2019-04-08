@@ -25,13 +25,22 @@ public class World
         for(int i=0; i<20; i++)
         {
             for(int j=0; j<20; j++)
-            b[i][j] = new GrassBlock(Assets.parrot,0,i,j);
+            b[i][j] = new GrassBlock(i,j);
         }
-        for(int i=10; i<20; i++)
+        for(int i=0; i<20; i++)
         {
-            for(int j=10; j<20; j++)
-            b[i][j] = new BrickBlock(Assets.parrot,1,i,j);
+            for(int j=0; j<20; j++)
+            {
+                
+                if(i==0 || i==19 || j==0 || j==19)
+                    b[i][j] = new BrickBlock(i,j);
+            }
         }
+    }
+    
+    public void loadWOrld(String path)
+    {
+        
     }
     
     public void collisionDetection()
@@ -41,13 +50,13 @@ public class World
     
     private void blockRender(Graphics g)
     {
-        for(int i=0; i<20; i++)
+        for(int x=0; x<20; x++)
         {
-            for(int j=0; j<20; j++)
+            for(int y=0; y<20; y++)
             {
                 
                     try{
-                    b[i][j].render(g);
+                    b[x][y].render(g);
                     } catch (Exception e){};
                 
             }

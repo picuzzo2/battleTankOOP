@@ -10,10 +10,11 @@ import java.awt.image.BufferedImage;
 
 public class Player 
 {
-    public static final float DEFAULT_SPEED = 3;
+    public static final float DEFAULT_SPEED = 2;
     public static final int PIX_WIDE = 32;
 
-    private float x,y,speed;
+    private float speed;
+    private int x,y;
     private int width , height;
     private int player;
     private int direction; // up=0, right=1, down=2, left=3
@@ -28,15 +29,15 @@ public class Player
             ,tlX,tlY
             ,brX,brY
             ,blX,blY;
-    private int tempx1,tempy1,tempx2,tempy2;
+    private int xBlock1,yBlock1,xBlock2,yBlock2;
    
     
-    public Player(World world,Game game, float x, float y, int player, BufferedImage avatar)
+    public Player(World world,Game game, int x, int y, int player, BufferedImage avatar)
     {
         this.x = x * PIX_WIDE;
         this.y = y * PIX_WIDE;
-        this.width = 25;
-        this.height = 25;
+        this.width = 26;
+        this.height = 26;
         this.game = game;
         this.world = world;
         speed = DEFAULT_SPEED;
@@ -44,9 +45,9 @@ public class Player
         this.avatar = avatar;
 
         //Hit boxes
-        tlX = (int)x; tlY = (int)y;
+        tlX = (int)x;       tlY = (int)y;
         trX = (int)x+width; trY = (int)y;
-        blX = (int)x; blY = (int)y+height;
+        blX = (int)x;       blY = (int)y+height;
         brX = (int)x+width; brY = (int)y+height;
         
         
@@ -61,53 +62,107 @@ public class Player
     {
         direction = 0;
         //draw tl and tr grid
-        tempx1 = (tlX/PIX_WIDE) ;
-        tempy1 = (tlY/PIX_WIDE) -1;
-        tempx2 = (trX/PIX_WIDE) ;
-        tempy2 = (trY/PIX_WIDE) -1;
+        xBlock1 = (tlX/PIX_WIDE) ;
+        yBlock1 = (tlY/PIX_WIDE) -1;
+        xBlock2 = (trX/PIX_WIDE) ;
+        yBlock2 = (trY/PIX_WIDE) -1;
  
-        if(y > 0 && world.b[tempx1][tempy1].moveAble 
-                && world.b[tempx2][tempy2].moveAble )
-            y -= speed;
+        if(y > 0 
+                && xBlock1 >= 0 && yBlock1 >= 0 //check out of screen
+                && xBlock2 < 20 && yBlock2 < 20)
+        {
+            
+            if(   world.b[xBlock1][yBlock1].moveAble //check collision
+               && world.b[xBlock2][yBlock2].moveAble)
+            {
+                y -= speed;
+            }
+            
+            else if( tlY > (yBlock1+1) * PIX_WIDE 
+                    && trY  > (yBlock2+1) * PIX_WIDE)
+            {
+                y -= speed;
+            }
+        }
     }
     
     private void moveDown()
     {
         direction = 2;
         //draw tl and tr grid
-        tempx1 = (blX/PIX_WIDE) ;
-        tempy1 = (blY/PIX_WIDE) +1;
-        tempx2 = (brX/PIX_WIDE) ;
-        tempy2 = (brY/PIX_WIDE) +1;
-        if(y < 20*PIX_WIDE-width && world.b[tempx1][tempy1].moveAble 
-               && world.b[tempx2][tempy2].moveAble)
-        y += speed;
+        xBlock1 = (blX/PIX_WIDE) ;
+        yBlock1 = (blY/PIX_WIDE) +1;
+        xBlock2 = (brX/PIX_WIDE) ;
+        yBlock2 = (brY/PIX_WIDE) +1;
+        if(y < 20*PIX_WIDE-width 
+                && xBlock1 >=0 && yBlock1 >=0 //check out of screen
+                && xBlock2 < 20 && yBlock2 < 20)
+        {
+            System.out.println(blX + " " + yBlock1*32 + " " + yBlock2*32);
+            if(   world.b[xBlock1][yBlock1].moveAble //check collision
+               && world.b[xBlock2][yBlock2].moveAble)
+            {
+                y += speed;
+            }
+            else if( blY+2 < (yBlock1) * PIX_WIDE 
+                    && brY+2 < (yBlock2) * PIX_WIDE)
+            {
+                y += speed;
+            }
+        }
     }
     
     private void moveLeft()
     {
         direction = 3;
         //draw tl and tr grid
-        tempx1 = (tlX/PIX_WIDE) -1;
-        tempy1 = (tlY/PIX_WIDE) ;
-        tempx2 = (blX/PIX_WIDE) -1;
-        tempy2 = (blY/PIX_WIDE) ;
-        if(x > 0 && world.b[tempx1][tempy1].moveAble 
-                && world.b[tempx2][tempy2].moveAble )
-        x -= speed;
+        xBlock1 = (tlX/PIX_WIDE) -1;
+        yBlock1 = (tlY/PIX_WIDE) ;
+        xBlock2 = (blX/PIX_WIDE) -1;
+        yBlock2 = (blY/PIX_WIDE) ;
+        if(x > 0 
+                && xBlock1 >= 0 && yBlock1 >= 0
+                && xBlock2 >= 0 && yBlock2 >= 0 )
+        {
+            
+            if(    world.b[xBlock1][yBlock1].moveAble 
+                && world.b[xBlock2][yBlock2].moveAble)
+            {
+                x -= speed;
+            }
+            else if( tlX > (xBlock1+1) * PIX_WIDE 
+                    && blX > (xBlock2+1) * PIX_WIDE)
+            {
+                x -= speed;
+            }
+        }
+        
     }
     
     private void moveRight()
     {
         direction = 1;
         //draw tl and tr grid
-        tempx1 = (brX/PIX_WIDE) +1;
-        tempy1 = (brY/PIX_WIDE) ;
-        tempx2 = (trX/PIX_WIDE) +1;
-        tempy2 = (trY/PIX_WIDE) ;
-        if(x < 20*PIX_WIDE-height && world.b[tempx1][tempy1].moveAble 
-                && world.b[tempx2][tempy2].moveAble)
-            x += speed;
+        xBlock1 = (brX/PIX_WIDE) +1;
+        yBlock1 = (brY/PIX_WIDE) ;
+        xBlock2 = (trX/PIX_WIDE) +1;
+        yBlock2 = (trY/PIX_WIDE) ;
+        if(x < 20*PIX_WIDE-height 
+                && xBlock1 < 20 && yBlock1 < 20 //check out of screen
+                && xBlock2 < 20 && yBlock2 < 20)
+        {
+            if(   world.b[xBlock1][yBlock1].moveAble //check collision
+               && world.b[xBlock2][yBlock2].moveAble)
+            {   
+                x += speed;   
+            }
+            else if( trX+2  < (xBlock1) * PIX_WIDE 
+                    && brX+2  < (xBlock2) * PIX_WIDE)
+            {
+                x += speed;
+            }
+            
+        }
   
     }
     
@@ -144,8 +199,8 @@ public class Player
         
         try 
         {
-            g.fillRect(tempx1*PIX_WIDE, tempy1*PIX_WIDE, 10, 10);
-            g.fillRect(tempx2*PIX_WIDE, tempy2*PIX_WIDE, 10, 10);
+            g.fillRect(xBlock1*PIX_WIDE, yBlock1*PIX_WIDE, 10, 10);
+            g.fillRect(xBlock2*PIX_WIDE, yBlock2*PIX_WIDE, 10, 10);
             if(bulletAppear)
             {
                 bullet.render(g);

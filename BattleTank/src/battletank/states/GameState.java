@@ -17,8 +17,8 @@ public class GameState extends State {
     {
         super(game);
          world = new World();
-        player1 = new Player(world,game, 0, 0, 1, Assets.penguin);
-        player2 = new Player(world,game, 2, 15, 2, Assets.pig);
+        player1 = new Player(world,game, 10, 1, 1, Assets.penguin);
+        player2 = new Player(world,game, 10, 18, 2, Assets.penguin);
         
        
         

@@ -9,7 +9,6 @@ public abstract class Blocks
     public static final int PIX_WIDE =32;
     
     protected BufferedImage texture;
-    protected final int id;
     protected int x,y;
     public int trX,trY
             ,tlX,tlY
@@ -17,10 +16,8 @@ public abstract class Blocks
             ,blX,blY;
     public boolean moveAble = true;
     
-    public Blocks(BufferedImage texture, int id, int x, int y)
+    public Blocks(int x, int y)
     {
-        this.id = id;
-        this.texture = texture;
         this.x = x;
         this.y = y;
         tlX = x; tlY = y;

@@ -1,14 +1,16 @@
 
 package battletank.blocks;
 
+import battletank.gfx.Assets;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 public class BrickBlock extends Blocks
 {
-    public BrickBlock(BufferedImage texture, int id, int x, int y) 
+    public BrickBlock(int x, int y) 
     {
-        super(texture, id, x , y);       
+        super( x , y);
+        texture = Assets.parrot;
         super.moveAble = false;
     }
 
