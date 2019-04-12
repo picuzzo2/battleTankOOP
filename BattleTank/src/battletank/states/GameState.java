@@ -1,8 +1,6 @@
 package battletank.states;
 
 import battletank.Game;
-import battletank.blocks.Blocks;
-import battletank.blocks.BrickBlock;
 import battletank.gfx.Assets;
 import battletank.player.Player;
 import battletank.world.World;
@@ -15,10 +13,11 @@ public class GameState extends State {
 
     public GameState(Game game)
     {
+        
         super(game);
         world = new World("res/world/world1.txt");
-        player1 = new Player(world,game, 10, 1, 1, Assets.texture[0]);
-        player2 = new Player(world,game, 10, 18, 2, Assets.penguin10);       
+        player1 = new Player(world,game, 10, 1, 1, Assets.penguin);
+        player2 = new Player(world,game, 10, 18, 2, Assets.penguin );       
     }
     
     @Override

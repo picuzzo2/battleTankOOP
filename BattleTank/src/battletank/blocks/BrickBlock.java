@@ -10,7 +10,7 @@ public class BrickBlock extends Blocks
     public BrickBlock(int id, int x, int y) 
     {
         super(id, x , y);
-        texture = Assets.parrot;
+        texture = Assets.brick;
         super.moveAble = false;
     }
 

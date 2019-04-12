@@ -1,9 +1,7 @@
 package battletank.player;
 
 import battletank.Game;
-import battletank.blocks.Blocks;
 import battletank.bullets.Bullet;
-import battletank.gfx.Assets;
 import battletank.world.World;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -14,8 +12,8 @@ public class Player
     public static final int PIX_WIDE = 32;
 
     private float speed;
-    private int x,y;
-    private int width , height;
+    private float x,y;
+    private int size;
     private int player;
     private int direction; // up=0, right=1, down=2, left=3
     private BufferedImage avatar;
@@ -32,11 +30,10 @@ public class Player
     {
         this.x = x * PIX_WIDE;
         this.y = y * PIX_WIDE;
-        this.width = 26;
-        this.height = 26;
+        this.size = 26;
         this.game = game;
         this.world = world;
-        speed = DEFAULT_SPEED;
+        speed = 2;
         this.player = player;
         this.avatar = avatar;
         
@@ -51,25 +48,19 @@ public class Player
     {
         direction = 0;
         //draw tl and tr grid
-        xBlock1 = (tlX()/PIX_WIDE) ;
-        yBlock1 = (tlY()/PIX_WIDE) -1;
-        xBlock2 = (trX()/PIX_WIDE) ;
-        yBlock2 = (trY()/PIX_WIDE) -1;
- 
-        if(y > 0 
-                && xBlock1 >= 0 && yBlock1 >= 0 //check out of screen
-                && xBlock2 < 20 && yBlock2 < 20)
+        set_checkBlocks();
+        
+        if(   world.b[xBlock1][yBlock1].moveAble //check collision
+           && world.b[xBlock2][yBlock2].moveAble)
         {
-            
-            if(   world.b[xBlock1][yBlock1].moveAble //check collision
-               && world.b[xBlock2][yBlock2].moveAble)
+            y -= speed;
+        }
+        else if( collisionWithBlock())
+        {
+            for(int i=0; i<speed; i++)
             {
-                y -= speed;
-            }
-            
-            else if( collisionWithBlock())
-            {
-                y -= speed;
+                if( collisionWithBlock())
+                    y -= 1;
             }
         }
     }
@@ -78,24 +69,19 @@ public class Player
     {
         direction = 2;
         //draw tl and tr grid
-        xBlock1 = (blX()/PIX_WIDE) ;
-        yBlock1 = (blY()/PIX_WIDE) +1;
-        xBlock2 = (brX()/PIX_WIDE) ;
-        yBlock2 = (brY()/PIX_WIDE) +1;
-        if(y < 20*PIX_WIDE-width 
-                && xBlock1 >=0 && yBlock1 >=0 //check out of screen
-                && xBlock2 < 20 && yBlock2 < 20)
+        set_checkBlocks();
+        
+        if(   world.b[xBlock1][yBlock1].moveAble //check collision
+           && world.b[xBlock2][yBlock2].moveAble)
         {
-            if(   world.b[xBlock1][yBlock1].moveAble //check collision
-               && world.b[xBlock2][yBlock2].moveAble)
+            y += speed;
+        }
+        else if( collisionWithBlock())
+        {
+            for(int i=0; i<speed; i++)
             {
-                y += speed;
-            }
-            else if( collisionWithBlock())
-            {
-               
-                y += speed;
-                
+                if( collisionWithBlock())
+                    y += 1;
             }
         }
     }
@@ -104,66 +90,92 @@ public class Player
     {
         direction = 3;
         //draw tl and tr grid
-        xBlock1 = (tlX()/PIX_WIDE) -1;
-        yBlock1 = (tlY()/PIX_WIDE) ;
-        xBlock2 = (blX()/PIX_WIDE) -1;
-        yBlock2 = (blY()/PIX_WIDE) ;
-        if(x > 0 
-                && xBlock1 >= 0 && yBlock1 >= 0
-                && xBlock2 >= 0 && yBlock2 >= 0 )
+        set_checkBlocks();
+        
+        if(    world.b[xBlock1][yBlock1].moveAble 
+            && world.b[xBlock2][yBlock2].moveAble)
         {
-            
-            if(    world.b[xBlock1][yBlock1].moveAble 
-                && world.b[xBlock2][yBlock2].moveAble)
+            x -= speed;
+        }
+        else if( collisionWithBlock())
+        {
+            for(int i=0; i<speed; i++)
             {
-                x -= speed;
+                if( collisionWithBlock())
+                    x -= 1;
             }
-            else if( collisionWithBlock())
-            {
-                x -= speed;
-            }
-        }     
+        }
     }
     
     private void moveRight()
     {
         direction = 1;
         //draw tl and tr grid
-        xBlock1 = (brX()/PIX_WIDE) +1;
-        yBlock1 = (brY()/PIX_WIDE) ;
-        xBlock2 = (trX()/PIX_WIDE) +1;
-        yBlock2 = (trY()/PIX_WIDE) ;
-        if(x < 20*PIX_WIDE-height 
-                && xBlock1 < 20 && yBlock1 < 20 //check out of screen
-                && xBlock2 < 20 && yBlock2 < 20)
-        {
-            if(   world.b[xBlock1][yBlock1].moveAble //check collision
-               && world.b[xBlock2][yBlock2].moveAble)
-            {   
-                x += speed;   
-            }
-            else if( collisionWithBlock())
-            {
-                x += speed;
-            }
-            
+        set_checkBlocks();
+        
+        if(   world.b[xBlock1][yBlock1].moveAble //check collision
+           && world.b[xBlock2][yBlock2].moveAble)
+        {   
+            x += speed;   
         }
-  
+        else if( collisionWithBlock())
+        {
+            for(int i=0; i<speed; i++)
+            {
+                if( collisionWithBlock())
+                    x += 1;
+                
+            }
+        }
+        
+    }
+    
+    private void set_checkBlocks()
+    {
+        switch(direction)
+        {
+            case 0:
+                xBlock1 = (tlX()/PIX_WIDE) ;
+                yBlock1 = (tlY()/PIX_WIDE) -1;
+                xBlock2 = (trX()/PIX_WIDE) ;
+                yBlock2 = (trY()/PIX_WIDE) -1;
+                break;
+            case 1:
+                xBlock1 = (brX()/PIX_WIDE) +1;
+                yBlock1 = (brY()/PIX_WIDE) ;
+                xBlock2 = (trX()/PIX_WIDE) +1;
+                yBlock2 = (trY()/PIX_WIDE) ;
+                break;
+            case 2:
+                xBlock1 = (blX()/PIX_WIDE) ;
+                yBlock1 = (blY()/PIX_WIDE) +1;
+                xBlock2 = (brX()/PIX_WIDE) ;
+                yBlock2 = (brY()/PIX_WIDE) +1;
+                break;
+            case 3:
+                xBlock1 = (tlX()/PIX_WIDE) -1;
+                yBlock1 = (tlY()/PIX_WIDE) ;
+                xBlock2 = (blX()/PIX_WIDE) -1;
+                yBlock2 = (blY()/PIX_WIDE) ;
+                break;
+                
+        }
     }
     
     private boolean collisionWithBlock()
     {
         switch(direction)
+            //up=0 right=1 down=2 left=3
         {
             case 0:
                 return tlY() > (yBlock1+1) * PIX_WIDE 
-                    && trY()  > (yBlock2+1) * PIX_WIDE;
+                    && trY() > (yBlock2+1) * PIX_WIDE;
             case 1:
-                return trX()+2  < (xBlock1) * PIX_WIDE 
-                    && brX()+2  < (xBlock2) * PIX_WIDE;
+                return trX() < ((xBlock1) * PIX_WIDE)-1 
+                    && brX() < ((xBlock2) * PIX_WIDE)-1;
             case 2:
-                return blY()+2 < (yBlock1) * PIX_WIDE 
-                    && brY()+2 < (yBlock2) * PIX_WIDE;
+                return blY() < ((yBlock1) * PIX_WIDE)-1
+                    && brY() < ((yBlock2) * PIX_WIDE)-1;
             case 3:
                 return tlX() > (xBlock1+1) * PIX_WIDE 
                     && blX() > (xBlock2+1) * PIX_WIDE;
@@ -174,18 +186,31 @@ public class Player
 
     private void shoot()
     {
-        System.out.println(blY() + " " + brY() + " " + yBlock1*PIX_WIDE);
+        System.out.println(tlX() + " " + blX() + " " + (xBlock1+1)*PIX_WIDE + " " + (xBlock2+1)*PIX_WIDE);
+        System.out.println(world.b[xBlock1][yBlock1].moveAble //check collision
+           && world.b[xBlock2][yBlock2].moveAble);
+        System.out.println(collisionWithBlock());
+
         bullet = new Bullet(x + PIX_WIDE / 2, y + PIX_WIDE/2 ,direction);
+    }
+    
+    public float getXpos()
+    {
+        return x;
+    }
+    public float getYpos()
+    {
+        return y;
     }
     
     private int tlX() { return (int)x; }
     private int tlY() { return (int)y; }
-    private int trX() { return (int)x + width; }
+    private int trX() { return (int)x + size; }
     private int trY() { return (int)y; }
     private int blX() { return (int)x; }
-    private int blY() { return (int)y + height; }
-    private int brX() { return (int)x + width; }
-    private int brY() { return (int)y + height; }
+    private int blY() { return (int)y + size; }
+    private int brX() { return (int)x + size; }
+    private int brY() { return (int)y + size; }
     
     public void tick()
     {       
@@ -220,7 +245,7 @@ public class Player
        
             
         } catch (Exception e) { }
-        g.drawImage(avatar, (int)x, (int)y, width, height,  null);
+        g.drawImage(avatar, (int)x, (int)y, size, size,  null);
         
     }
     
