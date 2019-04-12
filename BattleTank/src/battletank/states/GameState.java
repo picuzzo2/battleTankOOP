@@ -16,14 +16,10 @@ public class GameState extends State {
     public GameState(Game game)
     {
         super(game);
-         world = new World();
-        player1 = new Player(world,game, 10, 1, 1, Assets.penguin);
-        player2 = new Player(world,game, 10, 18, 2, Assets.penguin);
-        
-       
-        
+        world = new World("res/world/world1.txt");
+        player1 = new Player(world,game, 10, 1, 1, Assets.texture[0]);
+        player2 = new Player(world,game, 10, 18, 2, Assets.penguin10);       
     }
-    
     
     @Override
     public void tick() 
@@ -35,9 +31,10 @@ public class GameState extends State {
     @Override
     public void render(Graphics g) 
     {
-        world.render(g);
+        
         player1.render(g);
         player2.render(g);
+        world.render(g);
         
     }
     

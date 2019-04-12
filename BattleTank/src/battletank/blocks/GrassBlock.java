@@ -6,10 +6,10 @@ import java.awt.image.BufferedImage;
 
 public class GrassBlock extends Blocks {
 
-    public GrassBlock( int x, int y) 
+    public GrassBlock(int id, int x, int y) 
     {
         
-        super( x, y);
+        super(id, x, y);
         
     }
 

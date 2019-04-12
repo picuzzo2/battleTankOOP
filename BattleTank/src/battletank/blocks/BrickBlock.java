@@ -7,9 +7,9 @@ import java.awt.image.BufferedImage;
 
 public class BrickBlock extends Blocks
 {
-    public BrickBlock(int x, int y) 
+    public BrickBlock(int id, int x, int y) 
     {
-        super( x , y);
+        super(id, x , y);
         texture = Assets.parrot;
         super.moveAble = false;
     }

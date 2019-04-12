@@ -25,10 +25,6 @@ public class Player
     private Game game;    
     private Bullet bullet = null;
     private boolean bulletAppear = false;
-    public int trX,trY
-            ,tlX,tlY
-            ,brX,brY
-            ,blX,blY;
     private int xBlock1,yBlock1,xBlock2,yBlock2;
    
     
@@ -43,13 +39,6 @@ public class Player
         speed = DEFAULT_SPEED;
         this.player = player;
         this.avatar = avatar;
-
-        //Hit boxes
-        tlX = (int)x;       tlY = (int)y;
-        trX = (int)x+width; trY = (int)y;
-        blX = (int)x;       blY = (int)y+height;
-        brX = (int)x+width; brY = (int)y+height;
-        
         
         if(player == 1)
             direction = 2;
@@ -62,10 +51,10 @@ public class Player
     {
         direction = 0;
         //draw tl and tr grid
-        xBlock1 = (tlX/PIX_WIDE) ;
-        yBlock1 = (tlY/PIX_WIDE) -1;
-        xBlock2 = (trX/PIX_WIDE) ;
-        yBlock2 = (trY/PIX_WIDE) -1;
+        xBlock1 = (tlX()/PIX_WIDE) ;
+        yBlock1 = (tlY()/PIX_WIDE) -1;
+        xBlock2 = (trX()/PIX_WIDE) ;
+        yBlock2 = (trY()/PIX_WIDE) -1;
  
         if(y > 0 
                 && xBlock1 >= 0 && yBlock1 >= 0 //check out of screen
@@ -78,8 +67,7 @@ public class Player
                 y -= speed;
             }
             
-            else if( tlY > (yBlock1+1) * PIX_WIDE 
-                    && trY  > (yBlock2+1) * PIX_WIDE)
+            else if( collisionWithBlock())
             {
                 y -= speed;
             }
@@ -90,24 +78,24 @@ public class Player
     {
         direction = 2;
         //draw tl and tr grid
-        xBlock1 = (blX/PIX_WIDE) ;
-        yBlock1 = (blY/PIX_WIDE) +1;
-        xBlock2 = (brX/PIX_WIDE) ;
-        yBlock2 = (brY/PIX_WIDE) +1;
+        xBlock1 = (blX()/PIX_WIDE) ;
+        yBlock1 = (blY()/PIX_WIDE) +1;
+        xBlock2 = (brX()/PIX_WIDE) ;
+        yBlock2 = (brY()/PIX_WIDE) +1;
         if(y < 20*PIX_WIDE-width 
                 && xBlock1 >=0 && yBlock1 >=0 //check out of screen
                 && xBlock2 < 20 && yBlock2 < 20)
         {
-            System.out.println(blX + " " + yBlock1*32 + " " + yBlock2*32);
             if(   world.b[xBlock1][yBlock1].moveAble //check collision
                && world.b[xBlock2][yBlock2].moveAble)
             {
                 y += speed;
             }
-            else if( blY+2 < (yBlock1) * PIX_WIDE 
-                    && brY+2 < (yBlock2) * PIX_WIDE)
+            else if( collisionWithBlock())
             {
+               
                 y += speed;
+                
             }
         }
     }
@@ -116,10 +104,10 @@ public class Player
     {
         direction = 3;
         //draw tl and tr grid
-        xBlock1 = (tlX/PIX_WIDE) -1;
-        yBlock1 = (tlY/PIX_WIDE) ;
-        xBlock2 = (blX/PIX_WIDE) -1;
-        yBlock2 = (blY/PIX_WIDE) ;
+        xBlock1 = (tlX()/PIX_WIDE) -1;
+        yBlock1 = (tlY()/PIX_WIDE) ;
+        xBlock2 = (blX()/PIX_WIDE) -1;
+        yBlock2 = (blY()/PIX_WIDE) ;
         if(x > 0 
                 && xBlock1 >= 0 && yBlock1 >= 0
                 && xBlock2 >= 0 && yBlock2 >= 0 )
@@ -130,23 +118,21 @@ public class Player
             {
                 x -= speed;
             }
-            else if( tlX > (xBlock1+1) * PIX_WIDE 
-                    && blX > (xBlock2+1) * PIX_WIDE)
+            else if( collisionWithBlock())
             {
                 x -= speed;
             }
-        }
-        
+        }     
     }
     
     private void moveRight()
     {
         direction = 1;
         //draw tl and tr grid
-        xBlock1 = (brX/PIX_WIDE) +1;
-        yBlock1 = (brY/PIX_WIDE) ;
-        xBlock2 = (trX/PIX_WIDE) +1;
-        yBlock2 = (trY/PIX_WIDE) ;
+        xBlock1 = (brX()/PIX_WIDE) +1;
+        yBlock1 = (brY()/PIX_WIDE) ;
+        xBlock2 = (trX()/PIX_WIDE) +1;
+        yBlock2 = (trY()/PIX_WIDE) ;
         if(x < 20*PIX_WIDE-height 
                 && xBlock1 < 20 && yBlock1 < 20 //check out of screen
                 && xBlock2 < 20 && yBlock2 < 20)
@@ -156,8 +142,7 @@ public class Player
             {   
                 x += speed;   
             }
-            else if( trX+2  < (xBlock1) * PIX_WIDE 
-                    && brX+2  < (xBlock2) * PIX_WIDE)
+            else if( collisionWithBlock())
             {
                 x += speed;
             }
@@ -166,20 +151,44 @@ public class Player
   
     }
     
+    private boolean collisionWithBlock()
+    {
+        switch(direction)
+        {
+            case 0:
+                return tlY() > (yBlock1+1) * PIX_WIDE 
+                    && trY()  > (yBlock2+1) * PIX_WIDE;
+            case 1:
+                return trX()+2  < (xBlock1) * PIX_WIDE 
+                    && brX()+2  < (xBlock2) * PIX_WIDE;
+            case 2:
+                return blY()+2 < (yBlock1) * PIX_WIDE 
+                    && brY()+2 < (yBlock2) * PIX_WIDE;
+            case 3:
+                return tlX() > (xBlock1+1) * PIX_WIDE 
+                    && blX() > (xBlock2+1) * PIX_WIDE;
+        }
+        return false;
+    }
+    
 
     private void shoot()
     {
+        System.out.println(blY() + " " + brY() + " " + yBlock1*PIX_WIDE);
         bullet = new Bullet(x + PIX_WIDE / 2, y + PIX_WIDE/2 ,direction);
     }
     
+    private int tlX() { return (int)x; }
+    private int tlY() { return (int)y; }
+    private int trX() { return (int)x + width; }
+    private int trY() { return (int)y; }
+    private int blX() { return (int)x; }
+    private int blY() { return (int)y + height; }
+    private int brX() { return (int)x + width; }
+    private int brY() { return (int)y + height; }
+    
     public void tick()
-    {
-        
-        tlX = (int)x; tlY = (int)y;
-        trX = (int)x+width; trY = (int)y;
-        blX = (int)x; blY = (int)y+height;
-        brX = (int)x+width; brY = (int)y+height;
-        
+    {       
         if(game.getKeyManager(player).up)
             moveUp();
         if(game.getKeyManager(player).down)

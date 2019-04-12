@@ -6,9 +6,9 @@ import java.awt.image.BufferedImage;
 
 public class AirBlock extends Blocks {
 
-    public AirBlock( int x, int y) 
+    public AirBlock( int id, int x, int y) 
     {
-        super( x, y);
+        super( id, x, y);
     }
 
     @Override
