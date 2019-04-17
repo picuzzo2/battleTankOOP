@@ -8,9 +8,7 @@ public class GrassBlock extends Blocks {
 
     public GrassBlock(int id, int x, int y) 
     {
-        
         super(id, x, y);
-        
     }
 
     @Override

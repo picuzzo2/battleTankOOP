@@ -10,8 +10,9 @@ public class BrickBlock extends Blocks
     public BrickBlock(int id, int x, int y) 
     {
         super(id, x , y);
-        texture = Assets.brick;
+        texture = Assets.brickblock;
         super.moveAble = false;
+        super.solid = true;
     }
 
     @Override

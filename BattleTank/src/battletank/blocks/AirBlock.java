@@ -1,6 +1,7 @@
 
 package battletank.blocks;
 
+import battletank.gfx.Assets;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
@@ -20,7 +21,7 @@ public class AirBlock extends Blocks {
     @Override
     public void render(Graphics g) 
     {
-        
+        g.drawImage(Assets.airblock, x * PIX_WIDE, y* PIX_WIDE, PIX_WIDE, PIX_WIDE , null);
     }
 
 }

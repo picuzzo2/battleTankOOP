@@ -5,15 +5,16 @@ import java.awt.image.BufferedImage;
 public class Assets 
 {
     public static BufferedImage penguin,pig,bg,hippo,parrot;
-    public static BufferedImage brick;
+    public static BufferedImage brickblock,airblock,grassblock,iceblock;
     public static BufferedImage penguin10,penguin11,penguin12,penguin13;
     public static BufferedImage[] texture;
     public static BufferedImage[] player1;
     
     public static void init()
     {
-
-        brick = ImgLoader.loadImage("/texture/BrickBlock.png");
+        iceblock = ImgLoader.loadImage("/texture/brickblock_1.png");
+        airblock = ImgLoader.loadImage("/texture/airblock.png");
+        brickblock = ImgLoader.loadImage("/texture/brickblock.png");
         penguin = ImgLoader.loadImage("/texture/penguin.png");
         pig = ImgLoader.loadImage("/texture/pig.png");
         bg = ImgLoader.loadImage("/texture/iceland.jpg");
