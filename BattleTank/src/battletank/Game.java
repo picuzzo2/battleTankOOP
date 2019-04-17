@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 
 public class Game implements Runnable
 {
+    
     private Display display;
     private int width, height;
     private String title;
@@ -87,6 +88,7 @@ public class Game implements Runnable
     {
         init();
         
+        //set fps
         int fps = 60;
         double timePerTick = 1000000000 / fps;
         double delta = 0;
@@ -101,14 +103,13 @@ public class Game implements Runnable
             
             if(delta >= 1)
             {
+                //program run here
                 tick();
                 render();
                 
                 delta--;
             }
-            
         }
-        
         stop();
     }
     
@@ -141,4 +142,5 @@ public class Game implements Runnable
             return p2Control;
         return null;
     }
+
 }
