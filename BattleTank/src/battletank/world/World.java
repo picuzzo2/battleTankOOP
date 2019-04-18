@@ -5,7 +5,6 @@ import battletank.Game;
 import battletank.blocks.AirBlock;
 import battletank.blocks.Blocks;
 import battletank.blocks.BrickBlock;
-import battletank.blocks.GrassBlock;
 import battletank.blocks.IceBlock;
 import battletank.blocks.WaterBlock;
 import battletank.bullets.Bullet;

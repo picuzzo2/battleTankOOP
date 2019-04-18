@@ -3,6 +3,7 @@ package battletank;
 import battletank.Display.Display;
 import battletank.gfx.Assets;
 import battletank.input.KeyManager;
+import battletank.input.MouseManager;
 import battletank.input.Player1Key;
 import battletank.input.Player2Key;
 import battletank.states.GameState;
@@ -31,6 +32,7 @@ public class Game implements Runnable
     private State menuState;
     
     private KeyManager p1Control, p2Control;
+    private MouseManager mouseManager;
     
     public Game(String title, int width, int height)
     {
@@ -39,6 +41,7 @@ public class Game implements Runnable
         this.title = title;              
         p1Control = new Player1Key();
         p2Control = new Player2Key();
+        mouseManager = new MouseManager();
     }
     
     private void init()
@@ -46,11 +49,15 @@ public class Game implements Runnable
         display = new Display(title, width, height);
         display.getFrame().addKeyListener(p1Control);
         display.getFrame().addKeyListener(p2Control);
+        display.getFrame().addMouseListener(mouseManager);
+        display.getFrame().addMouseMotionListener(mouseManager);
+        display.getCanvas().addMouseListener(mouseManager);
+        display.getCanvas().addMouseMotionListener(mouseManager);
         Assets.init();
         
         gameState = new GameState(this);
         menuState = new MenuState(this);
-        State.setState(gameState);
+        State.setState(menuState);
     }
     
   
@@ -144,6 +151,16 @@ public class Game implements Runnable
         else if(player == 2 )
             return p2Control;
         return null;
+    }
+    
+    public MouseManager getMouseManager()
+    {
+        return mouseManager;
+    }
+    
+    public State getGameState()
+    {
+        return gameState;
     }
 
 }
