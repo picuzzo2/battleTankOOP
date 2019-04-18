@@ -11,6 +11,7 @@ public class IceBlock extends Blocks
         super(id, x, y);
         super.solid = true;
         super.moveAble = false;
+        texture = Assets.testIce;
     }
 
     @Override
@@ -22,7 +23,7 @@ public class IceBlock extends Blocks
     @Override
     public void render(Graphics g) 
     {
-        g.drawImage(Assets.iceblock, x * PIX_WIDE, y* PIX_WIDE, PIX_WIDE, PIX_WIDE , null);
+        g.drawImage(texture, x * PIX_WIDE, y* PIX_WIDE, PIX_WIDE, PIX_WIDE , null);
         
     }
     

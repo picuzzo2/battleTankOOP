@@ -3,22 +3,21 @@ package battletank.blocks;
 
 import battletank.gfx.Assets;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 
-public class BrickBlock extends Blocks
+public class WaterBlock extends Blocks
 {
-    public BrickBlock(int id, int x, int y) 
+    public WaterBlock(int id, int x, int y) 
     {
-        super(id, x , y);
-        texture = Assets.testBrick;
+        super(id, x, y);
+        texture = Assets.testWater;
         super.moveAble = false;
-        super.solid = true;
+        super.solid = false;
     }
 
     @Override
     public void tick() 
     {
-        
+       
     }
 
     @Override
@@ -26,5 +25,5 @@ public class BrickBlock extends Blocks
     {
         g.drawImage(texture, x * PIX_WIDE, y* PIX_WIDE, PIX_WIDE, PIX_WIDE , null);
     }
-
+    
 }

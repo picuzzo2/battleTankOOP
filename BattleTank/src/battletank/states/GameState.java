@@ -13,7 +13,7 @@ public class GameState extends State {
     {
         
         super(game);
-        world = new World("res/world/world1.txt",game);
+        world = new World("res/world/world4.txt",game);
           
     }
     

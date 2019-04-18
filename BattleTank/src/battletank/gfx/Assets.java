@@ -4,26 +4,28 @@ import java.awt.image.BufferedImage;
 
 public class Assets 
 {
-    public static BufferedImage penguin,pig,bg,hippo,parrot;
-    public static BufferedImage brickblock,airblock,grassblock,iceblock;
-    public static BufferedImage penguin10,penguin11,penguin12,penguin13;
-    public static BufferedImage[] texture;
-    public static BufferedImage[] player1;
+    public static BufferedImage iceTile,brickTile,waterTile,airTile,testBrick,testWater,testAir,testIce;
+    public static BufferedImage penguin,penguin_1,bg;
+    
+    
     
     public static void init()
     {
-        iceblock = ImgLoader.loadImage("/texture/brickblock_1.png");
-        airblock = ImgLoader.loadImage("/texture/airblock.png");
-        brickblock = ImgLoader.loadImage("/texture/brickblock.png");
-        penguin = ImgLoader.loadImage("/texture/penguin.png");
-        pig = ImgLoader.loadImage("/texture/pig.png");
-        bg = ImgLoader.loadImage("/texture/iceland.jpg");
-        hippo = ImgLoader.loadImage("/texture/hippo.png");
-        parrot = ImgLoader.loadImage("/texture/parrot.png");
+        testIce = ImgLoader.loadImage("/texture/testIce.jpg");
+        testAir = ImgLoader.loadImage("/texture/testAir.jpg");
+        testWater = ImgLoader.loadImage("/texture/testWater.jpg");
+        testBrick = ImgLoader.loadImage("/texture/testBrick.jpg");
+        //iceTile = ImgLoader.loadImage("/texture/IceTile.png");
+        //brickTile = ImgLoader.loadImage("/texture/brickTile.png");
+        //waterTile = ImgLoader.loadImage("/texture/waterTile.png");
+        //airTile = ImgLoader.loadImage("/texture/airTile.png");
         
-        penguin10 = ImgLoader.loadImage("/texture/penguin10_1.png");
-        penguin11 = ImgLoader.loadImage("/texture/penguin11.png");
-        penguin12 = ImgLoader.loadImage("/texture/penguin12.png");
-        penguin13 = ImgLoader.loadImage("/texture/penguin13.png");
+        penguin = ImgLoader.loadImage("/texture/penguin.png");
+        penguin_1 = ImgLoader.loadImage("/texture/penguin_1.jpeg");
+        
+        bg = ImgLoader.loadImage("/texture/iceland.jpg");
+        
+        
+        
     }
 }

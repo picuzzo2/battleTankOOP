@@ -59,7 +59,10 @@ public class Game implements Runnable
         p2Control.tick();
         p1Control.tick();
         if(State.getState() != null)
+        {
+            
             State.getState().tick();
+        }
     }
     
     private void render()

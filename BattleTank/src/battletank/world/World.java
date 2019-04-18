@@ -7,6 +7,7 @@ import battletank.blocks.Blocks;
 import battletank.blocks.BrickBlock;
 import battletank.blocks.GrassBlock;
 import battletank.blocks.IceBlock;
+import battletank.blocks.WaterBlock;
 import battletank.bullets.Bullet;
 import battletank.gfx.Assets;
 import battletank.player.Player;
@@ -29,7 +30,7 @@ public class World
     public World(String path, Game game)
     {
         loadWorld(path);
-        player1 = new Player(this,game, 10, 1, 1, Assets.penguin);
+        player1 = new Player(this,game, 10, 1, 1, Assets.penguin_1);
         player2 = new Player(this,game, 10, 18, 2, Assets.penguin );     
         gameOver = new GameOverState(game);
     }
@@ -49,7 +50,7 @@ public class World
                         b[x][y] = new AirBlock(0,x,y);
                         break;
                     case 1:
-                        b[x][y] = new GrassBlock(1,x,y);
+                        b[x][y] = new WaterBlock(1,x,y);
                         break;
                     case 2:
                         b[x][y] = new BrickBlock(2,x,y);
