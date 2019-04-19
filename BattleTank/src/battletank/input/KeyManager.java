@@ -7,15 +7,11 @@ public abstract class KeyManager implements KeyListener
 {
     protected boolean[] keys;
     public int flagUp,flagDown;
-    public boolean up, down, left, right, shoot;
-    
+    public boolean up, down, left, right, shoot;   
     
     public KeyManager()
     {
-        
         keys = new boolean[256];
-        flagUp = 1;
-        flagDown =1 ;
     }
     
     public abstract void tick();
@@ -30,20 +26,16 @@ public abstract class KeyManager implements KeyListener
     @Override
     public void keyPressed(KeyEvent arg0) 
     {
-        
         keys[arg0.getKeyCode()] = true;
-        flagUp = 0;
-        flagDown =0 ;
-        System.out.println(flagUp);
-        
     }
 
     @Override
     public void keyReleased(KeyEvent arg0) 
     {
-        keys[arg0.getKeyCode()] = false;
-        flagUp = 1;
-        flagDown =1 ;
+        if(arg0.getKeyCode() != KeyEvent.VK_ESCAPE)
+            keys[arg0.getKeyCode()] = false;
     }
     
+    //getter
+    public boolean[] getKeys() { return keys; }
 }

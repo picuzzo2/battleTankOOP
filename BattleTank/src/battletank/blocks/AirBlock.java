@@ -3,7 +3,6 @@ package battletank.blocks;
 
 import battletank.gfx.Assets;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 
 public class AirBlock extends Blocks {
 

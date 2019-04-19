@@ -17,36 +17,6 @@ public class UIManager
         objects = new ArrayList<UIObject>();
     }
     
-    public void tick()
-    {
-        for(UIObject o: objects)
-            o.tick();
-    }
-    
-    public void render(Graphics g)
-    {
-        for(UIObject o: objects)
-            o.render(g);
-    }
-
-    public Game getGame() {
-        return game;
-    }
-
-    public void setGame(Game game) {
-        this.game = game;
-    }
-
-    public ArrayList<UIObject> getObjects() {
-        return objects;
-    }
-
-    public void setObjects(ArrayList<UIObject> objects) {
-        this.objects = objects;
-    }
-    
-
-    
     public void onMouseMove(MouseEvent e)
     {
         for(UIObject o: objects)
@@ -68,5 +38,22 @@ public class UIManager
     {
         objects.remove(o);
     }
+        
+    public void tick()
+    {
+        for(UIObject o: objects)
+            o.tick();
+    }
     
+    public void render(Graphics g)
+    {
+        for(UIObject o: objects)
+            o.render(g);
+    }
+    
+    //getters and setters
+    public Game getGame() { return game; }
+    public void setGame(Game game) { this.game = game; }
+    public ArrayList<UIObject> getObjects() { return objects; }
+    public void setObjects(ArrayList<UIObject> objects) { this.objects = objects; }
 }

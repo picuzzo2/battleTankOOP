@@ -38,46 +38,38 @@ public abstract class UIObject
         if(hovering )
             onClick();
     }
+    
+    //gettes and setters
 
-    public float getX() {
-        return x;
-    }
+    public float getX() { return x; }
+    public float getY() { return y; }
+    public int getWidth() { return width; }
+    public int getHeight() { return height; }
+    public boolean isHovering() { return hovering; }
 
-    public void setX(float x) {
-        this.x = x;
-    }
-
-    public float getY() {
-        return y;
-    }
-
-    public void setY(float y) {
-        this.y = y;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public boolean isHovering() {
-        return hovering;
-    }
-
-    public void setHovering(boolean hovering) {
+    public void setHovering(boolean hovering) 
+    {
         this.hovering = hovering;
     }
     
+    public void setX(float x) 
+    {
+        this.x = x;
+    }
+    
+    public void setY(float y) 
+    {
+        this.y = y;
+    }
+    
+    public void setWidth(int width) 
+    {
+        this.width = width;
+    }
+    
+    public void setHeight(int height) 
+    {
+        this.height = height;
+    }
     
 }

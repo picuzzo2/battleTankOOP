@@ -1,19 +1,17 @@
 package battletank.blocks;
 
-import battletank.gfx.Assets;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 public abstract class Blocks 
 {
     public static final int PIX_WIDE =32;
+    public boolean moveAble = true;
+    public boolean solid = false;
     
     protected BufferedImage texture;
     protected final int id;
     protected int x,y;
-
-    public boolean moveAble = true;
-    public boolean solid = false;
     
     public Blocks( int id, int x, int y)
     {
@@ -23,9 +21,9 @@ public abstract class Blocks
     }
     
     public abstract void tick();
-    
     public abstract void render(Graphics g);
 
+    //getters
     public boolean isMoveAble() { return moveAble; }
     public int getID() { return id; }
 }

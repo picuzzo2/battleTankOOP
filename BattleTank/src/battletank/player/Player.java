@@ -18,7 +18,6 @@ public class Player
     private int direction; // up=0, right=1, down=2, left=3
     private BufferedImage avatar;
     
-    
     private World world;
     private Game game;    
     private Bullet bullet;
@@ -30,12 +29,13 @@ public class Player
     
     public Player(World world,Game game, int x, int y, int player, BufferedImage avatar)
     {
+        this.game = game;
+        this.world = world;
+        
         this.x = x * PIX_WIDE;
         this.y = y * PIX_WIDE;
         this.size = 26;
-        this.game = game;
-        this.world = world;
-        speed = 2;
+        this.speed = DEFAULT_SPEED;
         this.player = player;
         this.avatar = avatar;
         this.life = 3;
@@ -115,7 +115,6 @@ public class Player
         {
             x = (xBlock2 *PIX_WIDE) +PIX_WIDE+1;
         }
-       
     }
     
     private void moveRight()
@@ -139,8 +138,7 @@ public class Player
                 &&x + size >= (xBlock2 *PIX_WIDE) )
         {
             x = (xBlock2 *PIX_WIDE) -size -1;
-        }  
-        
+        }
     }
     
     private void set_checkBlocks()
@@ -171,7 +169,6 @@ public class Player
                 xBlock2 = ((blX()-2)/PIX_WIDE) ;
                 yBlock2 = (blY()/PIX_WIDE) ;
                 break;
-                
         }
     }
 
@@ -191,20 +188,6 @@ public class Player
             bulletReady = false;
         }
     }
-    
-    
-    private int tlX() { return (int)x ; }
-    private int tlY() { return (int)y ; }
-    private int trX() { return (int)x + size ; }
-    private int trY() { return (int)y ; }
-    private int blX() { return (int)x ; }
-    private int blY() { return (int)y + size ; }
-    private int brX() { return (int)x + size ; }
-    private int brY() { return (int)y + size ; }
-    public int getX() { return (int)x ; }
-    public int getY() { return (int)y ; }
-    public int getID() { return player; }
-    public int getLife() { return life; }
     
     public void tick()
     {       
@@ -237,6 +220,20 @@ public class Player
         g.drawImage(avatar, (int)x, (int)y, size, size,  null);
         
     }
+    
+    //gettes
+    private int tlX() { return (int)x ; }
+    private int tlY() { return (int)y ; }
+    private int trX() { return (int)x + size ; }
+    private int trY() { return (int)y ; }
+    private int blX() { return (int)x ; }
+    private int blY() { return (int)y + size ; }
+    private int brX() { return (int)x + size ; }
+    private int brY() { return (int)y + size ; }
+    public int getX() { return (int)x ; }
+    public int getY() { return (int)y ; }
+    public int getID() { return player; }
+    public int getLife() { return life; }
     
     
 }

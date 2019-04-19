@@ -10,7 +10,6 @@ import battletank.blocks.WaterBlock;
 import battletank.bullets.Bullet;
 import battletank.gfx.Assets;
 import battletank.player.Player;
-import battletank.states.GameOverState;
 import battletank.states.State;
 import battletank.utils.Utils;
 import java.awt.Graphics;
@@ -20,18 +19,18 @@ public class World
 {
     //20*20 block
     private static final int PIX_WIDE = 32;
-    
+    private Game game;
     private Player player1,player2;
+    
     public Blocks[][] b = new Blocks[20][20];
     public static LinkedList<Bullet> bullets = new LinkedList<Bullet>();
-    private State gameOver;
     
     public World(String path, Game game)
     {
         loadWorld(path);
+        this.game = game;
         player1 = new Player(this,game, 10, 1, 1, Assets.penguin_1);
-        player2 = new Player(this,game, 10, 18, 2, Assets.penguin );     
-        gameOver = new GameOverState(game);
+        player2 = new Player(this,game, 10, 18, 2, Assets.penguin );
     }
     
     public void loadWorld(String path)
@@ -69,7 +68,6 @@ public class World
     
     public void hitBlock(int x, int y)
     {
-        //System.out.println("Hit Block ID : " + b[x][y].getID());
         if ( b[x][y].getID() == 3)
         {
             b[x][y] = new AirBlock(0,x,y);
@@ -82,15 +80,16 @@ public class World
         player1.tick();
         player2.tick();
         
+        //state tick
         if(player1.getLife() <= 0 || player2.getLife() <= 0)
         {
-            State.setState(gameOver);
+            game.getMouseManager().setUIManager(game.getGameOverState().getUIManager());
+            State.setState(game.getGameOverState());
         }
     }
     
     public void render(Graphics g)
     {
-        
         //block render
         for(int x=0; x<20; x++)
         {
@@ -107,10 +106,9 @@ public class World
         //player render
         player1.render(g);
         player2.render(g);
-        
-        
     }
     
+    //getter
     public Player getPlayer(int p)
     {
         switch(p)

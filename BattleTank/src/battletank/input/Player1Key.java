@@ -14,5 +14,4 @@ public class Player1Key extends KeyManager {
         right = keys[KeyEvent.VK_RIGHT];
         shoot = keys[KeyEvent.VK_CONTROL];
     }
-    
 }

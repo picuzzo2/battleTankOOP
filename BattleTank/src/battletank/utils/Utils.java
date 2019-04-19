@@ -18,9 +18,7 @@ public class Utils
                 builder.append(line + "\n");
             
             br.close();
-        }catch(IOException e){
-            e.printStackTrace();
-        }
+        }catch(IOException e) {}
         
         return builder.toString();
     }
@@ -29,9 +27,6 @@ public class Utils
     {
         try{
             return Integer.parseInt(number);
-        } catch(NumberFormatException e) {
-            e.printStackTrace();
-            return 0;
-        }
+        } catch(NumberFormatException e) { return 0; }
     }
 }

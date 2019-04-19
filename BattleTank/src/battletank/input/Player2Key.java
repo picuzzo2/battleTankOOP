@@ -14,5 +14,4 @@ public class Player2Key extends KeyManager
         right = keys[KeyEvent.VK_D];
         shoot = keys[KeyEvent.VK_SPACE];
     }
-    
 }

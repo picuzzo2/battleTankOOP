@@ -4,12 +4,10 @@ package battletank.bullets;
 import battletank.gfx.Assets;
 import battletank.world.World;
 import static battletank.world.World.bullets;
-import java.awt.Color;
 import java.awt.Graphics;
 
 public class Bullet 
 {
-  
     private final int PIX_WIDE = 32;
     private float x,y;
     private int direction;
@@ -17,7 +15,6 @@ public class Bullet
     private int xBlock, yBlock;
     private World world;
     private int enemy;
-    
     
     public Bullet(float x, float y, int direction, World world, int player)
     {      
@@ -66,19 +63,19 @@ public class Bullet
                     y -= speed;
                 else 
                 {
-                    
                     bullets.remove(this);
                     world.hitBlock(xBlock,yBlock);
-                    
                 }
+                
                 if(hitPlayer())
                 {
                     bullets.remove(this);
                     world.hitPlayer(enemy);
-                    System.out.println(y + " >= " + (world.getPlayer(enemy).getY() + 26)+ " <= " + world.getPlayer(enemy).getY());
-                    System.out.println("Hit player " + enemy);
+                    //System.out.println(y + " >= " + (world.getPlayer(enemy).getY() + 26)+ " <= " + world.getPlayer(enemy).getY());
+                    //System.out.println("Hit player " + enemy);
                 }
                 break;
+                
             case 1: 
                 if(!world.b[xBlock][yBlock].solid)
                     x += speed;
@@ -87,12 +84,13 @@ public class Bullet
                     bullets.remove(this);
                     world.hitBlock(xBlock,yBlock);
                 }
+                
                 if(hitPlayer())
                 {
                     bullets.remove(this);
                     world.hitPlayer(enemy);
-                    System.out.println(y + " >= " + (world.getPlayer(enemy).getY() + 26)+ " <= " + world.getPlayer(enemy).getY());
-                    System.out.println("Hit player " + enemy);
+                    //System.out.println(y + " >= " + (world.getPlayer(enemy).getY() + 26)+ " <= " + world.getPlayer(enemy).getY());
+                    //System.out.println("Hit player " + enemy);
                 }
                 break;
                 
@@ -104,12 +102,13 @@ public class Bullet
                     bullets.remove(this);
                     world.hitBlock(xBlock,yBlock);
                 }
+                
                 if(hitPlayer())
                 {
                     bullets.remove(this);
                     world.hitPlayer(enemy);
-                    System.out.println(y + " >= " + (world.getPlayer(enemy).getY() + 26)+ " <= " + world.getPlayer(enemy).getY());
-                    System.out.println("Hit player " + enemy);
+                    //System.out.println(y + " >= " + (world.getPlayer(enemy).getY() + 26)+ " <= " + world.getPlayer(enemy).getY());
+                    //System.out.println("Hit player " + enemy);
                 }
                 break;
                 
@@ -121,12 +120,13 @@ public class Bullet
                     bullets.remove(this);
                     world.hitBlock(xBlock,yBlock);
                 }
+                
                 if(hitPlayer())
                 {
                     bullets.remove(this);
                     world.hitPlayer(enemy);
-                    System.out.println(y + " >= " + (world.getPlayer(enemy).getY() + 26)+ " <= " + world.getPlayer(enemy).getY());
-                    System.out.println("Hit player " + enemy);
+                    //System.out.println(y + " >= " + (world.getPlayer(enemy).getY() + 26)+ " <= " + world.getPlayer(enemy).getY());
+                    //System.out.println("Hit player " + enemy);
                 }
                 break;
         }
@@ -196,8 +196,21 @@ public class Bullet
         
     public void render(Graphics g)
     {
-        g.setColor(Color.RED);
-        g.fillRect((int)x , (int)y , 5, 5);
+        switch(direction)
+        {
+            case 0:
+                g.drawImage(Assets.bullet[0], (int)x-5, (int)y, 10, 30,  null);
+                break;
+            case 1:
+                g.drawImage(Assets.bullet[1], (int)x, (int)y-5, 30, 10,  null);
+                break;
+            case 2:
+                g.drawImage(Assets.bullet[2], (int)x-5, (int)y, 10, 30,  null);
+                break;
+            case 3:
+                g.drawImage(Assets.bullet[3], (int)x, (int)y-5, 30, 10,  null);
+                break;
+        }
         tick();
     }
 
