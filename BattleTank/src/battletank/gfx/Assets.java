@@ -4,8 +4,10 @@ import java.awt.image.BufferedImage;
 
 public class Assets 
 {
-    public static BufferedImage iceTile,brickTile,waterTile,airTile,testBrick,testWater,testAir,testIce;
-    public static BufferedImage penguin, penguin_1, stageSelector, gameOver, startBg 
+    public static BufferedImage iceTile,brickTile,waterTile,airTile, IceStage, MazeStage;
+    public static BufferedImage penguinp10, penguinp11, penguinp12, penguinp13
+            , penguinp21, penguinp22, penguinp23, penguinp20
+            , startBg, logo 
             ,pan0,pan1,pan2,pan3;
     public static BufferedImage startButton1,startButton2
             ,stageButton1,stageButton2
@@ -16,25 +18,37 @@ public class Assets
             , btn_31, btn_32
             , btn_41, btn_42
             , btn_51, btn_52
-            , panal, bluePanal
+            , panal, bluePanal, glassPanal, panalOver
+            , panalP1win, panalP2win
             , btn_resume1, btn_resume2
-            , btn_igexit1, btn_igexit2;
-    public static BufferedImage[] btn_start, btn_stage, btn_exit, btn_back;
-    public static BufferedImage[] bullet;
+            , btn_igexit1, btn_igexit2
+            , btn_backtomenu1, btn_backtomenu2;
+    public static BufferedImage heart;
+    public static BufferedImage[] btn_start, btn_stage, btn_exit, btn_back, btn_backtomenu;
+    public static BufferedImage[] bullet, hearts ,player1, player2;
     public static BufferedImage[] btn1, btn2, btn3, btn4, btn5, btn_resume, btn_igexit;
+    
+
    
     
     
     public static void init()
     {
+        IceStage = ImgLoader.loadImage("/ui/IceStage.png");
+        MazeStage = ImgLoader.loadImage("/ui/MazeStage.png");
+        
+        panalP1win = ImgLoader.loadImage("/ui/panal_p1win.png");
+        panalP2win = ImgLoader.loadImage("/ui/panal_p2win.png");
+        
+        logo = ImgLoader.loadImage("/ui/LoGo.png");
+        heart = ImgLoader.loadImage("/texture/heart_animated_1.png");
+        
         pan0 = ImgLoader.loadImage("/texture/pan.png");
         pan1 = ImgLoader.loadImage("/texture/pan1.png");
         pan2 = ImgLoader.loadImage("/texture/pan2.png");
         pan3 = ImgLoader.loadImage("/texture/pan3.png");
         
-        stageSelector = ImgLoader.loadImage("/ui/stageSelector.png");
-        startBg = ImgLoader.loadImage("/ui/startBg.png");
-        gameOver = ImgLoader.loadImage("/texture/gameOver.png");
+        startBg = ImgLoader.loadImage("/ui/menuBg.png");
         
         startButton1 =  ImgLoader.loadImage("/ui/btn_start1.png");
         startButton2 =  ImgLoader.loadImage("/ui/btn_start2.png");
@@ -48,6 +62,9 @@ public class Assets
         backBtn1 = ImgLoader.loadImage("/ui/btn_back1.png");
         backBtn2 = ImgLoader.loadImage("/ui/btn_back2.png");
         
+        btn_backtomenu1 = ImgLoader.loadImage("/ui/btn_backtomenu1.png");
+        btn_backtomenu2 = ImgLoader.loadImage("/ui/btn_backtomenu2.png");
+        
         btn_11 = ImgLoader.loadImage("/ui/btn_11.png");
         btn_12 = ImgLoader.loadImage("/ui/btn_12.png");
         btn_21 = ImgLoader.loadImage("/ui/btn_21.png");
@@ -58,8 +75,11 @@ public class Assets
         btn_42 = ImgLoader.loadImage("/ui/btn_42.png");
         btn_51 = ImgLoader.loadImage("/ui/btn_51.png");
         btn_52 = ImgLoader.loadImage("/ui/btn_52.png");
+        
         panal = ImgLoader.loadImage("/ui/panal.png");
         bluePanal = ImgLoader.loadImage("/ui/panal_blue.png");
+        glassPanal = ImgLoader.loadImage("/ui/glassPanal.png");
+        panalOver = ImgLoader.loadImage("/ui/panal_over.png");
         
         btn_resume1 = ImgLoader.loadImage("/ui/btn_resume1.png");
         btn_resume2 = ImgLoader.loadImage("/ui/btn_resume2.png");
@@ -67,19 +87,20 @@ public class Assets
         btn_igexit1 = ImgLoader.loadImage("/ui/btn_igexit1.png");
         btn_igexit2 = ImgLoader.loadImage("/ui/btn_igexit2.png");
         
-        testIce = ImgLoader.loadImage("/texture/testIce.jpg");
-        testAir = ImgLoader.loadImage("/texture/testAir.jpg");
-        testWater = ImgLoader.loadImage("/texture/testWater.jpg");
-        testBrick = ImgLoader.loadImage("/texture/testBrick.jpg");
+        iceTile = ImgLoader.loadImage("/texture/IceTile.jpg");
+        airTile = ImgLoader.loadImage("/texture/AirTile.jpg");
+        waterTile = ImgLoader.loadImage("/texture/waterTile.png");
+        brickTile = ImgLoader.loadImage("/texture/BrickTile.jpg");
         
         
-        //iceTile = ImgLoader.loadImage("/texture/IceTile.png");
-        //brickTile = ImgLoader.loadImage("/texture/brickTile.png");
-        //waterTile = ImgLoader.loadImage("/texture/waterTile.png");
-        //airTile = ImgLoader.loadImage("/texture/airTile.png");
-        
-        penguin = ImgLoader.loadImage("/texture/penguin.png");
-        penguin_1 = ImgLoader.loadImage("/texture/penguin_1.jpeg");
+        penguinp10 = ImgLoader.loadImage("/texture/player10.jpg");
+        penguinp11 = ImgLoader.loadImage("/texture/player11.jpg");
+        penguinp12 = ImgLoader.loadImage("/texture/player12.jpg");
+        penguinp13 = ImgLoader.loadImage("/texture/player13.jpg");
+        penguinp20 = ImgLoader.loadImage("/texture/player20.jpg");
+        penguinp21 = ImgLoader.loadImage("/texture/player21.jpg");
+        penguinp22 = ImgLoader.loadImage("/texture/player22.jpg");
+        penguinp23 = ImgLoader.loadImage("/texture/player23.jpg");
         
         btn_start = new BufferedImage[2];
         btn_start[0] = startButton1;
@@ -130,6 +151,26 @@ public class Assets
         btn_igexit = new BufferedImage[2];
         btn_igexit[0] = btn_igexit1;
         btn_igexit[1] = btn_igexit2;
+        
+        btn_backtomenu = new BufferedImage[2];
+        btn_backtomenu[0] = btn_backtomenu1;
+        btn_backtomenu[1] = btn_backtomenu2;
+        
+        hearts = new BufferedImage[2];
+        hearts[0] = heart.getSubimage(0,0,17,17);
+        hearts[1] = heart.getSubimage(4*17,0,17,17);
+        
+        player1 = new BufferedImage[4];
+        player1[0] = penguinp10;
+        player1[1] = penguinp11;
+        player1[2] = penguinp12;
+        player1[3] = penguinp13;
+        
+        player2 = new BufferedImage[4];
+        player2[0] = penguinp20;
+        player2[1] = penguinp21;
+        player2[2] = penguinp22;
+        player2[3] = penguinp23;
         
         
         

@@ -8,23 +8,39 @@ import battletank.ui.UIManager;
 import battletank.world.World;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.newdawn.easyogg.OggClip;
 
 public class GameState extends State {
     
-    private boolean pause;
+    private boolean pause,gameOver,playWin=false;
     private World world;
-    private UIManager uiManager;
+    private int winner;
+    private UIManager pauseUI, gameOverUI;
+    private OggClip gameBg,overBg;
     
 
     public GameState(Game game, String path)
     {
-        super(game);
+        super(game); 
+        winner = 0;
         world = new World(path,game);
-        uiManager = new UIManager(game);
+        pauseUI = new UIManager(game);
+        gameOverUI = new UIManager(game);
         pause = false;
+        gameOver = false;
+        
+        try {
+            gameBg = new OggClip("sound/game.ogg");
+            overBg = new OggClip("sound/over.ogg");
+        } catch (IOException ex) {
+            Logger.getLogger(GameState.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         //resume
-        uiManager.addObject(new UIImageButton((640/2)-100+20, (640/2)-100+70, 160, 49, Assets.btn_resume, new ClickListener(){
+        pauseUI.addObject(new UIImageButton((640/2)-100+20, (640/2)-100+70, 160, 49, Assets.btn_resume, new ClickListener(){
             @Override
             public void onClick() {
                 game.getMouseManager().setUIManager(null);
@@ -33,14 +49,32 @@ public class GameState extends State {
         }));
         
         //menu exit
-        uiManager.addObject(new UIImageButton((640/2)-100+20, (640/2)-100+125, 160, 49, Assets.btn_igexit, new ClickListener(){
+        pauseUI.addObject(new UIImageButton((640/2)-100+20, (640/2)-100+125, 160, 49, Assets.btn_igexit, new ClickListener(){
             @Override
             public void onClick() {
+                gameBg.stop();
+                game.getMenuState().playBg();
+                game.getMouseManager().setUIManager(game.getMenuState().getUIManager());
+                State.setState(game.getMenuState());
+            }
+        }));
+        
+        //return to menu
+        gameOverUI.addObject(new UIImageButton((640/2)-65, (640/2)-100+80, 130, 40, Assets.btn_igexit, new ClickListener(){
+            @Override
+            public void onClick() {
+                game.getMenuState().playBg();
                 game.getMouseManager().setUIManager(game.getMenuState().getUIManager());
                 State.setState(game.getMenuState());
             }
         }));
           
+    }
+    
+    public void playBg()
+    {
+        gameBg.loop();
+        
     }
 
     @Override
@@ -48,14 +82,27 @@ public class GameState extends State {
     {
         pause = game.getKeyManager(1).getKeys()[KeyEvent.VK_ESCAPE];
         
-        if(!pause)
+        if(!pause && !gameOver)
         {
             world.tick();
         }
-        else
+        else if(pause && !gameOver)
         {
-            game.getMouseManager().setUIManager(uiManager);
-            uiManager.tick();
+            game.getMouseManager().setUIManager(pauseUI);
+            pauseUI.tick();
+        }
+        
+        if(gameOver)
+        {
+            if(!playWin)
+            {
+                playWin = true;
+                gameBg.stop();
+                overBg.play();
+            }
+            game.getMouseManager().setUIManager(gameOverUI);
+            gameOverUI.tick();
+            
         }
         
         
@@ -65,17 +112,41 @@ public class GameState extends State {
     public void render(Graphics g) 
     {
         world.render(g);
-        if(pause)
+        if(pause && !gameOver)
         {
             g.drawImage(Assets.bluePanal,(640/2)-100, (640/2)-100, 200, 200, null);
-            uiManager.render(g);
+            pauseUI.render(g);
+        }
+        
+        if(gameOver)
+        {
+            switch(winner)
+            {
+                case 1:
+                    g.drawImage(Assets.panalP1win,(640/2)-100, (640/2)-100, null);
+                    break;
+                case 2:
+                    g.drawImage(Assets.panalP2win,(640/2)-100, (640/2)-100, null);
+                    break;
+            }
+            gameOverUI.render(g);
         }
         
     }
 
     //getters
     @Override
-    public UIManager getUIManager() { return uiManager; }
+    public UIManager getUIManager() { return pauseUI; }
+    public void setOver(boolean set)
+    {
+        gameOver = set;
+            
+    }
+    
+    public void setWinner(int p)
+    {
+        winner = p;
+    }
     
     
     

@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
 
 public class StageSelectorState extends State
 {
-    private UIManager uiManager;
+    private UIManager selectUI;
     private UIObject btn1,btn2,btn3,btn4,btn5;
     private BufferedImage show;
 
@@ -19,10 +19,10 @@ public class StageSelectorState extends State
     {
         super(game);
         show = Assets.btn_11;
-        uiManager = new UIManager(game);
+        selectUI = new UIManager(game);
         
         //back
-        uiManager.addObject(new UIImageButton(570, 570, 49, 49, Assets.btn_back, new ClickListener(){
+        selectUI.addObject(new UIImageButton(570, 570, 49, 49, Assets.btn_back, new ClickListener(){
             @Override
             public void onClick() {
                 game.getMouseManager().setUIManager(game.getMenuState().getUIManager());
@@ -31,47 +31,47 @@ public class StageSelectorState extends State
         }));
         
         //stg1
-        uiManager.addObject(btn1 = new UIImageButton(100, 450, 49, 49, Assets.btn1, new ClickListener(){
+        selectUI.addObject(btn1 = new UIImageButton(100, 450, 49, 49, Assets.btn1, new ClickListener(){
             @Override
             public void onClick() {
-                game.setStage("res/world/world1.txt");
+                game.getMenuState().setStage("res/world/world1.txt");
                 game.getMouseManager().setUIManager(game.getMenuState().getUIManager());
                 State.setState(game.getMenuState());
             }
         }));
         
         //stg2
-        uiManager.addObject(btn2 = new UIImageButton(200, 450, 49, 49, Assets.btn2, new ClickListener(){
+        selectUI.addObject(btn2 = new UIImageButton(200, 450, 49, 49, Assets.btn2, new ClickListener(){
             @Override
             public void onClick() {
-                game.setStage("res/world/world2.txt");
+                game.getMenuState().setStage("res/world/world2.txt");
                 game.getMouseManager().setUIManager(game.getMenuState().getUIManager());
                 State.setState(game.getMenuState());
             }
         }));
         
         //stg3
-        uiManager.addObject(btn3 =new UIImageButton(300, 450, 49, 49, Assets.btn3, new ClickListener(){
+        selectUI.addObject(btn3 =new UIImageButton(300, 450, 49, 49, Assets.btn3, new ClickListener(){
             @Override
             public void onClick() {
-                game.setStage("res/world/world3.txt");
+                game.getMenuState().setStage("res/world/world3.txt");
                 game.getMouseManager().setUIManager(game.getMenuState().getUIManager());
                 State.setState(game.getMenuState());
             }
         }));
         
         //stg4
-        uiManager.addObject(btn4 = new UIImageButton(400, 450, 49, 49, Assets.btn4, new ClickListener(){
+        selectUI.addObject(btn4 = new UIImageButton(400, 450, 49, 49, Assets.btn4, new ClickListener(){
             @Override
             public void onClick() {
-                game.setStage("res/world/world4.txt");
+                game.getMenuState().setStage("res/world/world4.txt");
                 game.getMouseManager().setUIManager(game.getMenuState().getUIManager());
                 State.setState(game.getMenuState());
             }
         }));
         
         //stg5
-        uiManager.addObject(btn5 = new UIImageButton(500, 450, 49, 49, Assets.btn5, new ClickListener(){
+        selectUI.addObject(btn5 = new UIImageButton(500, 450, 49, 49, Assets.btn5, new ClickListener(){
             @Override
             public void onClick() {
                 game.getMouseManager().setUIManager(game.getMenuState().getUIManager());
@@ -84,9 +84,9 @@ public class StageSelectorState extends State
     private void showImage()
     {
         if(btn1.isHovering())
-            show = Assets.btn_12;
+            show = Assets.IceStage;
         else if(btn2.isHovering())
-            show = Assets.btn_22;
+            show = Assets.MazeStage;
         else if(btn3.isHovering())
             show = Assets.btn_32;
         else if(btn4.isHovering())
@@ -98,7 +98,7 @@ public class StageSelectorState extends State
     @Override
     public void tick() 
     {
-        uiManager.tick();
+        selectUI.tick();
         showImage();
     }
 
@@ -106,12 +106,12 @@ public class StageSelectorState extends State
     public void render(Graphics g) 
     {
         g.drawImage(Assets.startBg, 0, 0, 640, 640, null);
-        g.drawImage(Assets.panal, (640/2) - 100, 200, 200, 200, null);
-        g.drawImage(show, (640/2) - 75, 200 + 25, 150, 150, null);
-        uiManager.render(g);
+        g.drawImage(Assets.glassPanal, (640/2) - 110, 200, 220, 220, null);
+        g.drawImage(show, (640/2) - 100 + 2, 212 , 195, 195, null);
+        selectUI.render(g);
     }
     
     //getters
-    public UIManager getUIManager() { return uiManager; }
+    public UIManager getUIManager() { return selectUI; }
     
 }

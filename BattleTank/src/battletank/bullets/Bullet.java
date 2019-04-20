@@ -1,10 +1,10 @@
-
 package battletank.bullets;
 
 import battletank.gfx.Assets;
 import battletank.world.World;
-import static battletank.world.World.bullets;
 import java.awt.Graphics;
+import java.io.IOException;
+import org.newdawn.easyogg.OggClip;
 
 public class Bullet 
 {
@@ -15,12 +15,17 @@ public class Bullet
     private int xBlock, yBlock;
     private World world;
     private int enemy;
+    private OggClip hit,shoot;
     
-    public Bullet(float x, float y, int direction, World world, int player)
+    public Bullet(float x, float y, int direction, World world, int player) throws IOException
     {      
         this.direction = direction;
         this.world = world;
         this.speed = 7;
+        hit = new OggClip("sound/hitted.ogg");
+        shoot = new OggClip("sound/shoot.ogg");
+        shoot.play();
+        
         switch(player)
         {
             case 1:
@@ -63,13 +68,14 @@ public class Bullet
                     y -= speed;
                 else 
                 {
-                    bullets.remove(this);
+                    world.bullets.remove(this);
                     world.hitBlock(xBlock,yBlock);
                 }
                 
                 if(hitPlayer())
                 {
-                    bullets.remove(this);
+                    hit.play();
+                    world.bullets.remove(this);
                     world.hitPlayer(enemy);
                     //System.out.println(y + " >= " + (world.getPlayer(enemy).getY() + 26)+ " <= " + world.getPlayer(enemy).getY());
                     //System.out.println("Hit player " + enemy);
@@ -81,13 +87,14 @@ public class Bullet
                     x += speed;
                 else 
                 {
-                    bullets.remove(this);
+                    world.bullets.remove(this);
                     world.hitBlock(xBlock,yBlock);
                 }
                 
                 if(hitPlayer())
                 {
-                    bullets.remove(this);
+                    hit.play();
+                    world.bullets.remove(this);
                     world.hitPlayer(enemy);
                     //System.out.println(y + " >= " + (world.getPlayer(enemy).getY() + 26)+ " <= " + world.getPlayer(enemy).getY());
                     //System.out.println("Hit player " + enemy);
@@ -99,13 +106,14 @@ public class Bullet
                     y += speed;
                 else 
                 {
-                    bullets.remove(this);
+                    world.bullets.remove(this);
                     world.hitBlock(xBlock,yBlock);
                 }
                 
                 if(hitPlayer())
                 {
-                    bullets.remove(this);
+                    hit.play();
+                    world.bullets.remove(this);
                     world.hitPlayer(enemy);
                     //System.out.println(y + " >= " + (world.getPlayer(enemy).getY() + 26)+ " <= " + world.getPlayer(enemy).getY());
                     //System.out.println("Hit player " + enemy);
@@ -117,13 +125,14 @@ public class Bullet
                     x -= speed;
                 else
                 {
-                    bullets.remove(this);
+                    world.bullets.remove(this);
                     world.hitBlock(xBlock,yBlock);
                 }
                 
                 if(hitPlayer())
                 {
-                    bullets.remove(this);
+                    hit.play();
+                    world.bullets.remove(this);
                     world.hitPlayer(enemy);
                     //System.out.println(y + " >= " + (world.getPlayer(enemy).getY() + 26)+ " <= " + world.getPlayer(enemy).getY());
                     //System.out.println("Hit player " + enemy);
@@ -211,7 +220,7 @@ public class Bullet
                 g.drawImage(Assets.bullet[3], (int)x, (int)y-5, 30, 10,  null);
                 break;
         }
-        tick();
+        
     }
 
 }

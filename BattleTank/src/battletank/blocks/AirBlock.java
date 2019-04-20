@@ -9,7 +9,7 @@ public class AirBlock extends Blocks {
     public AirBlock( int id, int x, int y) 
     {
         super( id, x, y);
-        texture = Assets.testAir;
+        texture = Assets.airTile;
     }
 
     @Override

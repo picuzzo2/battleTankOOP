@@ -9,7 +9,7 @@ public class WaterBlock extends Blocks
     public WaterBlock(int id, int x, int y) 
     {
         super(id, x, y);
-        texture = Assets.testWater;
+        texture = Assets.waterTile;
         super.moveAble = false;
         super.solid = false;
     }

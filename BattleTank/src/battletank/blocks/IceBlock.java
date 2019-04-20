@@ -10,7 +10,7 @@ public class IceBlock extends Blocks
         super(id, x, y);
         super.solid = true;
         super.moveAble = false;
-        texture = Assets.testIce;
+        texture = Assets.iceTile;
     }
 
     @Override

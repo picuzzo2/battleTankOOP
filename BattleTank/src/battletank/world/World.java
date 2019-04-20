@@ -23,14 +23,14 @@ public class World
     private Player player1,player2;
     
     public Blocks[][] b = new Blocks[20][20];
-    public static LinkedList<Bullet> bullets = new LinkedList<Bullet>();
+    public LinkedList<Bullet> bullets = new LinkedList<Bullet>();
     
     public World(String path, Game game)
     {
         loadWorld(path);
         this.game = game;
-        player1 = new Player(this,game, 10, 1, 1, Assets.penguin_1);
-        player2 = new Player(this,game, 10, 18, 2, Assets.penguin );
+        player1 = new Player(this,game, 10, 1, 1, Assets.player1);
+        player2 = new Player(this,game, 10, 18, 2, Assets.player2);
     }
     
     public void loadWorld(String path)
@@ -83,9 +83,18 @@ public class World
         //state tick
         if(player1.getLife() <= 0 || player2.getLife() <= 0)
         {
-            game.getMouseManager().setUIManager(game.getGameOverState().getUIManager());
-            State.setState(game.getGameOverState());
+            //game.getMouseManager().setUIManager(game.getGameOverState().getUIManager());
+            //State.setState(game.getGameOverState());
+            game.getMenuState().getGameState().setOver(true);
+            if(player1.getLife() == 0)
+                game.getMenuState().getGameState().setWinner(2);
+            else if(player2.getLife() == 0)
+                game.getMenuState().getGameState().setWinner(1);
         }
+        
+        //bullet tick
+        for(int i=0; i<bullets.size(); i++)
+            bullets.get(i).tick();
     }
     
     public void render(Graphics g)
@@ -99,7 +108,7 @@ public class World
             }
         }
         
-        //bullet render + tick
+        //bullet render
         for(int i=0; i<bullets.size(); i++)
             bullets.get(i).render(g);
         

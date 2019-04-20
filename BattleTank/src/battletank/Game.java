@@ -6,7 +6,6 @@ import battletank.input.KeyManager;
 import battletank.input.MouseManager;
 import battletank.input.Player1Key;
 import battletank.input.Player2Key;
-import battletank.states.GameOverState;
 import battletank.states.GameState;
 import battletank.states.MenuState;
 import battletank.states.StageSelectorState;
@@ -47,22 +46,26 @@ public class Game implements Runnable
     
     private void init()
     {        
-        display = new Display(title, width, height);
-        display.getFrame().addKeyListener(p1Control);
-        display.getFrame().addKeyListener(p2Control);
-        display.getFrame().addMouseListener(mouseManager);
-        display.getFrame().addMouseMotionListener(mouseManager);
-        display.getCanvas().addMouseListener(mouseManager);
-        display.getCanvas().addMouseMotionListener(mouseManager);
-        Assets.init();
+
+            display = new Display(title, width, height);
+            display.getFrame().addKeyListener(p1Control);
+            display.getFrame().addKeyListener(p2Control);
+            display.getFrame().addMouseListener(mouseManager);
+            display.getFrame().addMouseMotionListener(mouseManager);
+            display.getCanvas().addMouseListener(mouseManager);
+            display.getCanvas().addMouseMotionListener(mouseManager);
+            Assets.init();
+
+            
+            worldPath = "res/world/world1.txt";
+            
+            gameState = new GameState(this,worldPath);
+            menuState = new MenuState(this);
+            selectState = new StageSelectorState(this);
+            
+            State.setState(menuState);
+
         
-        worldPath = "res/world/world1.txt";
-        selectState = new StageSelectorState(this);
-        gameState = new GameState(this,worldPath);
-        menuState = new MenuState(this);
-        gameOver = new GameOverState(this);
-        
-        State.setState(menuState);
     }
     
   
@@ -159,15 +162,11 @@ public class Game implements Runnable
     
     //gettes and setters
     public MouseManager getMouseManager() { return mouseManager; }
-    public State getGameState() { return gameState; }
-    public State getStageSelector() { return selectState; }
-    public State getMenuState() { return menuState; }
+    //public GameState getGameState() { return (GameState) gameState; }
+    public StageSelectorState getStageSelector() { return (StageSelectorState) selectState; }
+    public MenuState getMenuState() { return (MenuState) menuState; }
     public State getGameOverState() { return gameOver; }
     
-    public void setStage(String path)
-    {
-        worldPath = path;
-        gameState = new GameState(this,worldPath);
-    }
+
 
 }
