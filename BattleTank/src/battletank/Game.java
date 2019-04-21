@@ -57,7 +57,7 @@ public class Game implements Runnable
             Assets.init();
 
             
-            worldPath = "res/world/world1.txt";
+            worldPath = "res/world/world4.txt";
             
             gameState = new GameState(this,worldPath);
             menuState = new MenuState(this);

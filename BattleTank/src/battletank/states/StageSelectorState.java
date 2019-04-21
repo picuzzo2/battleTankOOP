@@ -18,7 +18,7 @@ public class StageSelectorState extends State
     public StageSelectorState(Game game) 
     {
         super(game);
-        show = Assets.btn_11;
+        show = Assets.defaultStage;
         selectUI = new UIManager(game);
         
         //back
@@ -88,9 +88,9 @@ public class StageSelectorState extends State
         else if(btn2.isHovering())
             show = Assets.MazeStage;
         else if(btn3.isHovering())
-            show = Assets.btn_32;
+            show = Assets.flatStage;
         else if(btn4.isHovering())
-            show = Assets.btn_42;
+            show = Assets.defaultStage;
         else if(btn5.isHovering())
             show = Assets.btn_52;
     }

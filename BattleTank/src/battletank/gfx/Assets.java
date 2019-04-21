@@ -4,7 +4,8 @@ import java.awt.image.BufferedImage;
 
 public class Assets 
 {
-    public static BufferedImage iceTile,brickTile,waterTile,airTile, IceStage, MazeStage;
+    public static BufferedImage iceTile,brickTile,waterTile,airTile
+            , IceStage, MazeStage, defaultStage, flatStage;
     public static BufferedImage penguinp10, penguinp11, penguinp12, penguinp13
             , penguinp21, penguinp22, penguinp23, penguinp20
             , startBg, logo 
@@ -34,6 +35,8 @@ public class Assets
     
     public static void init()
     {
+        flatStage = ImgLoader.loadImage("/ui/flatStage.png");
+        defaultStage = ImgLoader.loadImage("/ui/DefaultStage.png");
         IceStage = ImgLoader.loadImage("/ui/IceStage.png");
         MazeStage = ImgLoader.loadImage("/ui/MazeStage.png");
         
