@@ -54,7 +54,7 @@ public class StageSelectorState extends State
         selectUI.addObject(btn3 =new UIImageButton(300, 450, 49, 49, Assets.btn3, new ClickListener(){
             @Override
             public void onClick() {
-                game.getMenuState().setStage("res/world/world3.txt");
+                game.getMenuState().setStage("res/world/world6.txt");
                 game.getMouseManager().setUIManager(game.getMenuState().getUIManager());
                 State.setState(game.getMenuState());
             }
@@ -74,6 +74,7 @@ public class StageSelectorState extends State
         selectUI.addObject(btn5 = new UIImageButton(500, 450, 49, 49, Assets.btn5, new ClickListener(){
             @Override
             public void onClick() {
+                game.getMenuState().setStage("res/world/world5.txt");
                 game.getMouseManager().setUIManager(game.getMenuState().getUIManager());
                 State.setState(game.getMenuState());
             }
@@ -88,11 +89,11 @@ public class StageSelectorState extends State
         else if(btn2.isHovering())
             show = Assets.MazeStage;
         else if(btn3.isHovering())
-            show = Assets.flatStage;
+            show = Assets.world6Stage;
         else if(btn4.isHovering())
             show = Assets.defaultStage;
         else if(btn5.isHovering())
-            show = Assets.btn_52;
+            show = Assets.starStage;
     }
 
     @Override

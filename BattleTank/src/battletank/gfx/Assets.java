@@ -4,11 +4,10 @@ import java.awt.image.BufferedImage;
 
 public class Assets 
 {
-    public static BufferedImage iceTile,brickTile,waterTile,airTile
-            , IceStage, MazeStage, defaultStage, flatStage;
+    public static BufferedImage iceTile,brickTile,waterTile,airTile, startBg
+            , IceStage, MazeStage, defaultStage, flatStage, starStage, world6Stage;
     public static BufferedImage penguinp10, penguinp11, penguinp12, penguinp13
             , penguinp21, penguinp22, penguinp23, penguinp20
-            , startBg, logo 
             ,pan0,pan1,pan2,pan3;
     public static BufferedImage startButton1,startButton2
             ,stageButton1,stageButton2
@@ -35,6 +34,8 @@ public class Assets
     
     public static void init()
     {
+        world6Stage = ImgLoader.loadImage("/ui/world6Stage.png");
+        starStage = ImgLoader.loadImage("/ui/starStage.png");
         flatStage = ImgLoader.loadImage("/ui/flatStage.png");
         defaultStage = ImgLoader.loadImage("/ui/DefaultStage.png");
         IceStage = ImgLoader.loadImage("/ui/IceStage.png");
@@ -43,7 +44,6 @@ public class Assets
         panalP1win = ImgLoader.loadImage("/ui/panal_p1win.png");
         panalP2win = ImgLoader.loadImage("/ui/panal_p2win.png");
         
-        logo = ImgLoader.loadImage("/ui/LoGo.png");
         heart = ImgLoader.loadImage("/texture/heart_animated_1.png");
         
         pan0 = ImgLoader.loadImage("/texture/pan.png");
